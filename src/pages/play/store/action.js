@@ -2,8 +2,8 @@ import * as actionType from './constant';
 import {
     getCurrentSong,
     getLyric,
-} from '@/services/play'
-import {parseLyric} from '@/utils/parse-lyric';
+} from '../../../services/play'
+import {parseLyric} from '../../../utils/parse-lyric';
 
 // 当前播放歌曲
 const saveCurrentSongAction = (res) => {

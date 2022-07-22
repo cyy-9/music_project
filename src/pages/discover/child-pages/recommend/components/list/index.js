@@ -1,10 +1,10 @@
 import React, { memo, useEffect } from 'react'
 import {shallowEqual, useDispatch, useSelector} from 'react-redux'
 
-import YYRecHeader from '@/components/recommend-header';
+import YYRecHeader from '../../../../../../components/recommend-header';
 import {ListWrapper} from './style';
 import {getListAction} from '../../store/action'
-import YYTopRanking from '@/components/top-ranking'
+import YYTopRanking from '../../../../../../components/top-ranking'
 
 export default memo(function YYRecList() {
 

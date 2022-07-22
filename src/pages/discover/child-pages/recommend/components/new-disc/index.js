@@ -2,10 +2,10 @@ import React, { memo, useEffect, useRef } from 'react'
 import {shallowEqual, useDispatch, useSelector} from 'react-redux'
 import {Carousel} from 'antd'
 
-import YYRecHeader from '@/components/recommend-header';
+import YYRecHeader from '../../../../../../components/recommend-header';
 import {NewDiscWrapper} from './style';
 import {getNewDiscAction} from '../../store/action'
-import YYDiscItem from '@/components/disc-item';
+import YYDiscItem from '../../../../../../components/disc-item';
 
 export default memo(function YYRecNewDisc() {
     const newDiscRef = useRef();

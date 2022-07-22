@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 
-import {getCount, getSizeImg} from '@/utils/format-utils'
+import {getCount, getSizeImg} from '../../utils/format-utils'
 import {SongsItemWrapper} from './style';
 
 export default memo(function YYSongsItem(props) {

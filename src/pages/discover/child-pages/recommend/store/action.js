@@ -5,7 +5,7 @@ import {
     getHotRecommend,
     getNewDisc,
     getList,
-} from '@/services/recommend.js';
+} from '../../../../../services/recommend.js';
 
 // 修改 redux中状态的 action对象 轮播
 const saveTopBannersAction = (res) => {

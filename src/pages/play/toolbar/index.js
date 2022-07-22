@@ -2,7 +2,7 @@ import React, { memo, useEffect, useRef, useState, useCallback } from 'react'
 import { Slider, } from 'antd';
 import {shallowEqual, useDispatch, useSelector} from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import YYPlayList from '@/components/play-list';
+import YYPlayList from '../../../components/play-list';
 
 import {
     ToolBarWrapper,
@@ -17,7 +17,7 @@ import {
     saveRealTimeLyricAction,
     saveIsCloseAction,
 } from '../store/action';
-import {formatDate, getPlaySong} from '@/utils/format-utils'
+import {formatDate, getPlaySong} from '../../../utils/format-utils'
 
 export default memo(function YYToolBar() {
     // 保存当前播放歌曲实时的时间，毫秒单位

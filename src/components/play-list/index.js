@@ -11,12 +11,12 @@ import {
 import {
     PlayListWrapper,
 } from './style';
-import {formatDate} from '@/utils/format-utils';
+import {formatDate} from '../../utils/format-utils';
 import {
     saveIsCloseAction,
     getCurrentSongAction,
     saveSongsListAction,
-} from '@/pages/play/store/action'
+} from '../../pages/play/store/action'
 
 
 export default memo(function YYPlayList(props) {

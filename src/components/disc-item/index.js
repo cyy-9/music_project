@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 
-import {getSizeImg} from '@/utils/format-utils'
+import {getSizeImg} from '../../utils/format-utils'
 import {DiscWrapper} from './style';
 
 export default memo(function YYDiscItem(props) {

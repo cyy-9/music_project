@@ -7,7 +7,7 @@ import {
     HeaderLeft,
     HeaderRight,
 } from './style'
-import {headerLinks} from '@/common/local-data.js'
+import {headerLinks} from '../../common/local-data.js'
 
 export default memo(function YYAppHeader() {
     const showSelectItem = (item, index) => {

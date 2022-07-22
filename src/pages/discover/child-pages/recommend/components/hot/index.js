@@ -1,8 +1,8 @@
 import React, { memo, useEffect } from 'react';
 import {useDispatch, useSelector, shallowEqual} from 'react-redux'
 
-import YYRecHeader from '@/components/recommend-header';
-import YYSongsItem from '@/components/songs-item'
+import YYRecHeader from '../../../../../../components/recommend-header';
+import YYSongsItem from '../../../../../../components/songs-item'
 import {HotRecommendWrapper} from './style';
 import {getHotRecommendAction} from '../../store/action';
 

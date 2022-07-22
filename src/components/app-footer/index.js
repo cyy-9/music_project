@@ -1,6 +1,6 @@
 import React, { memo, Fragment } from 'react'
 
-import {footerLinks, footerImages} from '@/common/local-data.js'
+import {footerLinks, footerImages} from '../../common/local-data.js'
 import {AppFooterWrapper, FooterLeft, FooterRight} from './style'
 
 export default memo(function YYAppFooter() {

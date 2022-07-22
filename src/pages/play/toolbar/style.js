@@ -90,12 +90,12 @@ export const PlayInfo = styled.div`
 
         .ant-slider-rail {
           height: 9px;
-          background: url(${require("@/assets/img/progress_bar.png")}) right 0;
+          background: url(${require("../../../assets/img/progress_bar.png")}) right 0;
         }
 
         .ant-slider-track {
           height: 9px;
-          background: url(${require("@/assets/img/progress_bar.png")}) left -66px;
+          background: url(${require("../../../assets/img/progress_bar.png")}) left -66px;
         }
 
         .ant-slider-handle {
@@ -103,7 +103,7 @@ export const PlayInfo = styled.div`
           height: 24px;
           border: none;
           margin-top: -7px;
-          background: url(${require("@/assets/img/sprite_icon.png")}) 0 -250px;
+          background: url(${require("../../../assets/img/sprite_icon.png")}) 0 -250px;
         }
       }
 

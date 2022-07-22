@@ -2,8 +2,8 @@ import React, { memo } from 'react'
 import { useDispatch} from 'react-redux'
 
 import {TopRankingWrapper} from './style';
-import {getSizeImg} from '@/utils/format-utils'
-import {getCurrentSongAction} from '@/pages/play/store/action.js';
+import {getSizeImg} from '../../utils/format-utils'
+import {getCurrentSongAction} from '../../pages/play/store/action.js';
 
 export default memo(function YYTopRanking(props) {
     const {info} = props;
