@@ -72,6 +72,7 @@ export const HeaderLeft = styled.div`
 `;
 export const HeaderRight = styled.div`
     display: flex;
+    position: relative;
     align-items: center;
     color: #ccc;
     font-size: 12px;
@@ -96,8 +97,28 @@ export const HeaderRight = styled.div`
         border-radius: 16px;
         margin: 0 16px;
         background-color: transparent;
+        cursor: pointer;
+        &:hover {
+            border-color: #ccc;
+            color: #eee;
+        }
     }
     .login-button {
         padding-right: 22px;
+        cursor: pointer;
+        &:hover {
+            color: #eee;
+        }
     }
+`;
+
+export const SearchMenuDiv = styled.div`
+    width: 240px;
+    height: 302px;
+    box-shadow: 10px;
+    position: absolute;
+    top: 60px;
+    background: #eee;
+    border-radius: 5px;
+    z-index: 5;
 `;

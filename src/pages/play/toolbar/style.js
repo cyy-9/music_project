@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const ToolBarWrapper = styled.div`
+  z-index: 10;
   position: fixed;
   left: 0;
   right: 0;
