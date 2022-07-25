@@ -22,6 +22,10 @@ export const BannerLeft = styled.div`
       width: 100%;
     }
   }
+
+  .slick-dots, .slick-dots-bottom {
+    z-index: 0;
+  }
 `
 
 export const BannerRight = styled.a.attrs({

@@ -7,7 +7,6 @@ export const PlayListWrapper = styled.div`
     bottom: 45px;
     left: 50%;
     transform: translate(-50%);
-    z-index: 20;
     .header {
         height: 40px;
         width: 100%;

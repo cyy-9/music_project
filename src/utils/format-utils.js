@@ -11,7 +11,7 @@ export function getCount(count) {
 
 export function getSizeImg(imgUrl, size) {
   // imgUrl[8] = '3';
-  return `${imgUrl}?param=${size}y${size}`;
+  if(imgUrl) return `${imgUrl}?param=${size}y${size}`;
 }
 
 export function formatDate(time, fmt) {

@@ -49,7 +49,7 @@ export default memo(function YYToolBar() {
         isClose: state.get("playReducer").get("isClose"),
     }), shallowEqual);
     useEffect(() => {
-        dispatch(getCurrentSongAction(songsList[0].id))
+        dispatch(getCurrentSongAction(songsList[0] && songsList[0].id))
     }, [dispatch, songsList])
     // 给 audio标签设置 src属性
     useEffect(() => {

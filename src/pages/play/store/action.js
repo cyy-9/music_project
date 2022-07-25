@@ -14,6 +14,9 @@ const saveCurrentSongAction = (res) => {
 }
 export const getCurrentSongAction = (id) => {
     return (dispatch, getState) => {
+        if(!id) {
+            return;
+        }
         // 根据 id判断播放列表是否有此歌曲，如果没有再网络请求
         // 拿到播放列表
         const songsList = getState().get('playReducer').get('songsList');
