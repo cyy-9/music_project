@@ -29,11 +29,11 @@ export function getNewDisc(limit) {
 }
 
 // 请求排行榜的数据
-export function getList(idx) {
+export function getList(id) {
     return request({
-        url: '/top/list',
+        url: '/playlist/detail',
         params: {
-            idx,
+            id,
         }
     })
 }

@@ -1,6 +1,6 @@
 import React, { memo, useState } from 'react';
 import {NavLink} from 'react-router-dom';
-import {Input } from 'antd';
+import {Input} from 'antd';
 import {
     SearchOutlined,
     RightOutlined,
@@ -13,6 +13,7 @@ import {
 } from './style';
 import {headerLinks} from '../../common/local-data.js';
 import request from '../../services/request';
+import LoginModal from '../login-modal';
 
 function SearchMenu(props) {
     const {visible, keywords, songs, artists, albums, playlists} = props;
@@ -154,9 +155,12 @@ export default memo(function YYAppHeader() {
     const handleInputBlur = () => {
         setIsSearchMenuVisible(false);
     }
+    const handleClickLogin = () => {
+
+    }
 
     return (
-        <HeaderWrapper>
+        <HeaderWrapper id="header-wrapper">
             <div className="content wrap-v1">
                 <HeaderLeft>
                     <a href="#/discover/recommend" className="logo sprite_01"> </a>
@@ -194,10 +198,14 @@ export default memo(function YYAppHeader() {
                         artists={artists}
                     />
                     <div className="center">创作者中心</div>
-                    <div className="login-button">登录</div>
+                    <div 
+                        className="login-button"
+                        onClick={handleClickLogin}
+                    >登录</div>
                 </HeaderRight>
             </div>
             <div className="divider"></div>
+            <LoginModal></LoginModal>
         </HeaderWrapper>
     )
 })

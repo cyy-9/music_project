@@ -15,6 +15,9 @@ export const HeaderWrapper = styled.div`
         height: 5px;
         background-color: #c20c0c;
     }
+    .ant-modal-wrap .ant-modal .ant-modal-content .ant-modal-header {
+        background: #242424;
+    }
 `;
 export const HeaderLeft = styled.div`
     display: flex;

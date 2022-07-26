@@ -73,10 +73,11 @@ const saveOriginListAction = (res) => {
         value:res.playlist,
     }
 }
-export const getListAction = (idx) => {
+export const getListAction = (id) => {
     return (dispatch) => {
-        getList(idx).then(res => {
-            switch(idx) {
+        getList(id).then(res => {
+            console.log(res)
+            switch(id) {
                 case 0:
                     dispatch(saveSoarListAction(res));
                     break;
