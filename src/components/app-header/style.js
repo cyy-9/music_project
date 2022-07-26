@@ -114,11 +114,74 @@ export const HeaderRight = styled.div`
 
 export const SearchMenuDiv = styled.div`
     width: 240px;
-    height: 302px;
     box-shadow: 10px;
     position: absolute;
     top: 60px;
     background: #eee;
     border-radius: 5px;
     z-index: 5;
+    .search-menu-content {
+        .search-users {
+            height: 38px;
+            line-height: 38px;
+            color: #888;
+            padding-left: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #ccc;
+            &:hover {
+                color: #666;
+            }
+        }
+        .result-content {
+            display: flex;
+            flex-flow: row nowrap;
+            .result-title {
+                width: 80px;
+                text-align: center;
+                border-right: 1px solid #ccc;
+                .title-item {
+                    height: 24px;
+                    line-height: 24px;
+                    color: #444;
+                    font-size: 12px;
+                    font-weight: normal;
+                }
+                .title1 {
+                    margin-top: 6px;
+                }
+                .title2 {
+                    margin-top: ${(props) => ((props.songsCount - 1) * 24 + 12)}px;
+                }
+                .title3 {
+                    margin-top: 12px;
+                }
+                .title4 {
+                    margin-top: 36px;
+                }
+            }
+            .result-list {
+                width: 160px;
+                .list-item {
+                    box-sizing: content-box;
+                    /* text-align: center; */
+                    padding-left: 5px;
+                    height: 24px;
+                    line-height: 24px;
+                    color: #444;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+                .padding-top {
+                    padding-top: 6px;
+                }
+                .padding-bottom {
+                    padding-bottom: 6px;
+                }
+                .border-style {
+                    border-top: 1px solid #ccc;
+                }
+            }
+        }
+    }
 `;
