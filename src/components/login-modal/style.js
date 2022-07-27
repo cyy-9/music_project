@@ -54,11 +54,14 @@ export const LoginModalStyle = styled.div`
         text-align: center;
       }
       .qrcode {
-        margin: 13px auto;
-        padding-top: 4px;
-        border: 1px solid #ccc;
-        width: 128px;
-        height: 128px;
+        margin: 10px auto;
+        /* border: 1px solid #ccc; */
+        width: 180px;
+        height: 180px;
+        img {
+          /* width: 100%;
+          height: 100%; */
+        }
       }
     }
   }

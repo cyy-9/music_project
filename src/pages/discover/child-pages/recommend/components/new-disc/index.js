@@ -19,8 +19,8 @@ export default memo(function YYRecNewDisc() {
     
     // 要求将数组 5个一组分为两组，对数组进行格式化
     const formatDisc = (arr) => {
-        let arrOne = arr.slice(0, 5);
-        let arrTwo = arr.slice(5, 10);
+        let arrOne = arr.length && arr.slice(0, 5);
+        let arrTwo = arr.length && arr.slice(5, 10);
         return [arrOne, arrTwo];
     }
     // 点击按钮切换轮播
@@ -44,7 +44,7 @@ export default memo(function YYRecNewDisc() {
                             return (
                                 <div className="page" key={i}>
                                 {
-                                    arr.map((item, index) => {
+                                    arr && arr.map((item, index) => {
                                         return (
                                             // <div key={item.id}>{item.name}</div>
                                             <YYDiscItem key={item.id}

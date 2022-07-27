@@ -98,6 +98,7 @@ export default memo(function YYAppHeader() {
     const [artists, setArtists] = useState([]);   // 歌手
     const [albums, setAlbums] = useState([]);     // 专辑
     const [playlists, setPlaylists] = useState([]);     // 歌单
+    const [loginModalVisible, setLoginModalVisible] = useState(false);
     const showSelectItem = (item, index) => {
         if(index < 3) {
             return (
@@ -156,9 +157,11 @@ export default memo(function YYAppHeader() {
         setIsSearchMenuVisible(false);
     }
     const handleClickLogin = () => {
-
+        setLoginModalVisible(true);
     }
-
+    const handleClickClose = () => {
+        setLoginModalVisible(false);
+    }
     return (
         <HeaderWrapper id="header-wrapper">
             <div className="content wrap-v1">
@@ -205,7 +208,12 @@ export default memo(function YYAppHeader() {
                 </HeaderRight>
             </div>
             <div className="divider"></div>
-            <LoginModal></LoginModal>
+            {
+                loginModalVisible ? <LoginModal 
+                    visible={loginModalVisible}
+                    clickClose={handleClickClose}
+                ></LoginModal> : null
+            }
         </HeaderWrapper>
     )
 })
