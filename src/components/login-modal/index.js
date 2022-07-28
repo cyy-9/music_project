@@ -3,7 +3,6 @@ import {CloseOutlined} from '@ant-design/icons'
 import {
   UnLoginStyle,
   AuthStyle,
-  LoginSuccessStyle
 } from './style';
 import axios from 'axios';
 import {api} from '../../services/config';
@@ -14,8 +13,7 @@ export default function LoginModal(props) {
   const [qrcodeBase64, setQrcodeBase64] = useState('');
   // 扫码状态是否为授权中
   const [isLoginAuth, setIsLoginAuth] = useState(false);
-  // 扫码状态是否为登录成功
-  // const [isLogin, setIsLogin] = useState(false);
+
   const timerRef = useRef();
   // 获取登录 key
   useEffect(() => {

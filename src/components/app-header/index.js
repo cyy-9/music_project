@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import {NavLink} from 'react-router-dom';
 import {Input} from 'antd';
 import {
@@ -14,6 +14,8 @@ import {
 import {headerLinks} from '../../common/local-data.js';
 import request from '../../services/request';
 import LoginModal from '../login-modal';
+import {api, cookie} from '../../services/config';
+import axios from 'axios';
 
 function SearchMenu(props) {
     const {visible, keywords, songs, artists, albums, playlists} = props;
@@ -99,6 +101,20 @@ export default memo(function YYAppHeader() {
     const [albums, setAlbums] = useState([]);     // 专辑
     const [playlists, setPlaylists] = useState([]);     // 歌单
     const [loginModalVisible, setLoginModalVisible] = useState(false);
+    // 获取登录状态
+    useEffect(() => {
+        request({
+            method: 'post',
+            url: api + '/user/subcount',
+            body: {
+                cookie: encodeURIComponent(cookie),
+                timeStamp: new Date().getTime(),
+            },
+        }).then((res) => {
+            console.log(res);
+        })
+    }, []);
+    
     const showSelectItem = (item, index) => {
         if(index < 3) {
             return (
