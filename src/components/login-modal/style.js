@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const LoginModalStyle = styled.div`
+export const UnLoginStyle = styled.div`
   position: absolute;
   width: 530px;
   height: 366px;
@@ -65,4 +65,34 @@ export const LoginModalStyle = styled.div`
       }
     }
   }
+`;
+
+export const AuthStyle = styled.div`
+  .imgwrapper {
+    width: 140px;
+    height: 140px;
+    margin: 40px auto;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .authing {
+    .p1 {
+      margin-top: 2px;
+      text-align: center;
+      font-size: 18px;
+      color: #333;
+    }
+    .p2 {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 16px;
+      color: #666;
+    }
+  }
+`;
+
+export const LoginSuccessStyle = styled.div`
+
 `;
