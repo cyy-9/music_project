@@ -8,7 +8,7 @@ import {getHotRecommendAction} from '../../store/action';
 
 export default memo(function YYHot() {
     const {hotRecommends} = useSelector(state => ({
-        hotRecommends: state.get("recommendReducer").get("hotRecommend"),
+        hotRecommends: state.recommendReducer.hotRecommend,
     }), shallowEqual);
     const dispatch = useDispatch();
 

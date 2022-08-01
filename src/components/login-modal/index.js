@@ -64,12 +64,13 @@ export default function LoginModal(props) {
         }).then((res) => {
           if(res.data.code === 803) {
             clickClose();
-            document.cookie = res.data.cookie;
+            // console.log(res.data.cookie);
+            localStorage.setItem('cookie', JSON.stringify(res.data.cookie));
           } else if(res.data.code === 802) {
             setIsLoginAuth(true);
           }
         })
-      }, 5000);
+      }, 2000);
     }
   }, [loginKey, clickClose]);
 

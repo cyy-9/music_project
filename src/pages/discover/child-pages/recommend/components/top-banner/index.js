@@ -26,7 +26,7 @@ export default memo(function YYTopBanner() {
         // 在 state中获取数据的方式发生变化
 
         // 在 state中先获取 recommendReducer的属性值，再获取 topBanners的属性值
-        topBanners: state.get("recommendReducer").get("topBanners"),
+        topBanners: state.recommendReducer.topBanners,
         // 另一种写法
         // 传入一个数组，按照数组元素的顺序深入对象拿到属性值
         // topBanners: state.getIn(["recommendReducer", "topBanners"])

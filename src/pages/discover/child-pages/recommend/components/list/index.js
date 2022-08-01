@@ -17,9 +17,9 @@ export default memo(function YYRecList() {
         dispatch(getListAction(2884035));
     }, [dispatch])
     const {soarList, newList, originList} = useSelector(state => ({
-        soarList: state.get('recommendReducer').get('soarList'),
-        newList: state.get('recommendReducer').get('newList'),
-        originList: state.get('recommendReducer').get('originList'),
+        soarList: state.recommendReducer.soarList,
+        newList: state.recommendReducer.newList,
+        originList: state.recommendReducer.originList,
     }), shallowEqual);
     return (
         <ListWrapper>

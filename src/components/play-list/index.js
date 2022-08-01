@@ -30,11 +30,11 @@ export default memo(function YYPlayList(props) {
             isClose, 
             currentSongIndex,
         } = useSelector(state => ({
-        songsList: state.get("playReducer").get("songsList"),   // 播放列表
-        currentSong: state.get("playReducer").get("currentSong"),   // 当前播放歌曲
-        lyrics: state.get("playReducer").get("lyrics"),         // 歌词数组
-        isClose: state.get("playReducer").get('isClose'),       // 控制播放列表开关
-        currentSongIndex: state.get("playReducer").get("currentSongIndex"), // 歌曲索引
+        songsList: state.playReducer.songsList,   // 播放列表
+        currentSong: state.playReducer.currentSong,   // 当前播放歌曲
+        lyrics: state.playReducer.lyrics,         // 歌词数组
+        isClose: state.playReducer.isClose,       // 控制播放列表开关
+        currentSongIndex: state.playReducer.currentSongIndex, // 歌曲索引
     }), shallowEqual);
     // 找到正确歌词的索引
     useEffect(() => {

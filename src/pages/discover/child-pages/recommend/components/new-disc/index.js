@@ -11,7 +11,7 @@ export default memo(function YYRecNewDisc() {
     const newDiscRef = useRef();
     const dispatch = useDispatch();
     const {newDisc} = useSelector(state => ({
-        newDisc: state.get("recommendReducer").get("newDisc"),
+        newDisc: state.recommendReducer.newDisc,
     }), shallowEqual);
     useEffect(() => {
         dispatch(getNewDiscAction(10)); 

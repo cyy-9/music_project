@@ -40,13 +40,13 @@ export default memo(function YYToolBar() {
         realTimeLyric,
         isClose,
     } = useSelector(state => ({
-        currentSong: state.get('playReducer').get('currentSong'),
-        playMode: state.get('playReducer').get('playMode'),
-        songsList: state.get('playReducer').get('songsList'),
-        currentSongIndex: state.get('playReducer').get('currentSongIndex'),
-        lyrics: state.get("playReducer").get("lyrics"),
-        realTimeLyric: state.get('playReducer').get('realTimeLyric'),
-        isClose: state.get("playReducer").get("isClose"),
+        currentSong: state.playReducer.currentSong,
+        playMode: state.playReducer.playMode,
+        songsList: state.playReducer.songsList,
+        currentSongIndex: state.playReducer.currentSongIndex,
+        lyrics: state.playReducer.lyrics,
+        realTimeLyric: state.playReducer.realTimeLyric,
+        isClose: state.playReducer.isClose,
     }), shallowEqual);
     useEffect(() => {
         dispatch(getCurrentSongAction(songsList[0] && songsList[0].id))

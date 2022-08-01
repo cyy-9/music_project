@@ -1,4 +1,4 @@
-import React, { memo, Suspense } from 'react'
+import React, { memo, Suspense } from 'react';
 import {Provider} from 'react-redux'
 import {renderRoutes} from 'react-router-config'
 import { HashRouter } from 'react-router-dom'

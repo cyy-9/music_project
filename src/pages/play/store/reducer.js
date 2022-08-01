@@ -1,8 +1,8 @@
-import {Map} from 'immutable'
+// import {Map} from 'immutable'
 
 import * as actionType from './constant'
 
-const initState = Map({
+const initState = {
     currentSong: {},        // 当前播放的歌曲
     currentSongIndex: 0,    // 当前播放歌曲在播放列表中的索引值
     songsList: [            // 播放列表
@@ -245,24 +245,31 @@ const initState = Map({
     lyrics: [],             // 整首歌的歌词数组,
     realTimeLyric: "",      // 实时播放的一句歌词    
     isClose: false,         // 播放列表显隐
-})
+}
 
 const reducer = (state = initState, action) => {
     switch(action.type) {
         case actionType.CHANGE_CURRENT_SONG:
-            return state.set("currentSong", action.value);
+            // return state.set("currentSong", action.value);
+            return {...state, currentSong: action.value};
         case actionType.CHANGE_CURRENT_SONG_INDEX:
-            return state.set("currentSongIndex", action.value);
+            // return state.set("currentSongIndex", action.value);
+            return {...state, currentSongIndex: action.value};
         case actionType.CHANGE_SONGS_LIST:
-            return state.set("songsList", action.value);
+            // return state.set("songsList", action.value);
+            return {...state, songsList: action.value};
         case actionType.CHANGE_PLAY_MODE:
-            return state.set('playMode', action.value);
+            // return state.set('playMode', action.value);
+            return {...state, playMode: action.value};
         case actionType.CHANGE_LYRICS:
-            return state.set("lyrics", action.value);
+            // return state.set("lyrics", action.value);
+            return {...state, lyrics: action.value};
         case actionType.CHANGE_REAL_TIME_LYRIC:
-            return state.set("realTimeLyric", action.value);
+            // return state.set("realTimeLyric", action.value);
+            return {...state, realTimeLyric: action.value};
         case actionType.CHANGE_IS_CLOSE:
-            return state.set("isClose", action.value);
+            // return state.set("isClose", action.value);
+            return {...state, isClose: action.value};
         default:
             return state;
     }

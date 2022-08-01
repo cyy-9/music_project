@@ -19,7 +19,7 @@ export const getCurrentSongAction = (id) => {
         }
         // 根据 id判断播放列表是否有此歌曲，如果没有再网络请求
         // 拿到播放列表
-        const songsList = getState().get('playReducer').get('songsList');
+        const songsList = getState().playReducer.songsList;
         // 根据 id在列表中搜索，找到返回具体下标，没找到返回 -1
         const songIdex = songsList.findIndex((song) => {
             return song.id === id;

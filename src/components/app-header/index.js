@@ -5,6 +5,8 @@ import {
     SearchOutlined,
     RightOutlined,
 } from '@ant-design/icons';
+import {useDispatch} from 'react-redux';
+import axios from 'axios';
 import {
     HeaderWrapper,
     HeaderLeft,
@@ -14,8 +16,7 @@ import {
 import {headerLinks} from '../../common/local-data.js';
 import request from '../../services/request';
 import LoginModal from '../login-modal';
-import {api, cookie} from '../../services/config';
-import axios from 'axios';
+import {api} from '../../services/config';
 
 function SearchMenu(props) {
     const {visible, keywords, songs, artists, albums, playlists} = props;
@@ -101,20 +102,26 @@ export default memo(function YYAppHeader() {
     const [albums, setAlbums] = useState([]);     // 专辑
     const [playlists, setPlaylists] = useState([]);     // 歌单
     const [loginModalVisible, setLoginModalVisible] = useState(false);
+
+    const dispatch = useDispatch();
     // 获取登录状态
-    useEffect(() => {
-        request({
-            method: 'post',
-            url: api + '/user/subcount',
-            body: {
-                cookie: encodeURIComponent(cookie),
-                timeStamp: new Date().getTime(),
-            },
-        }).then((res) => {
-            console.log(res);
-        })
-    }, []);
-    
+    const getLoginStatus = () => {
+      // 拿到localStorage中的cookie
+      let cookie = localStorage.getItem('cookie');
+      axios({
+        url: api + '/login/status',
+        params: {
+          cookie: cookie,
+        }
+      }).then((res) => {
+        if(res.data.account.id) {
+          dispatch()
+        } else {
+          
+        }
+      })
+    }
+
     const showSelectItem = (item, index) => {
         if(index < 3) {
             return (
