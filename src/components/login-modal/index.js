@@ -1,11 +1,13 @@
 import React, {useEffect, useState, useRef} from 'react';
 import {CloseOutlined} from '@ant-design/icons'
+import {useDispatch} from 'react-redux';
 import {
   UnLoginStyle,
   AuthStyle,
 } from './style';
 import axios from 'axios';
 import {api} from '../../services/config';
+import {changeLoginStatus} from '../app-header/store/action';
 
 export default function LoginModal(props) {
   const {clickClose} = props;
@@ -13,6 +15,8 @@ export default function LoginModal(props) {
   const [qrcodeBase64, setQrcodeBase64] = useState('');
   // 扫码状态是否为授权中
   const [isLoginAuth, setIsLoginAuth] = useState(false);
+
+  const dispatch = useDispatch();
 
   const timerRef = useRef();
   // 获取登录 key
@@ -66,13 +70,14 @@ export default function LoginModal(props) {
             clickClose();
             // console.log(res.data.cookie);
             localStorage.setItem('cookie', JSON.stringify(res.data.cookie));
+            dispatch(changeLoginStatus(true));
           } else if(res.data.code === 802) {
             setIsLoginAuth(true);
           }
         })
       }, 2000);
     }
-  }, [loginKey, clickClose]);
+  }, [loginKey, clickClose, dispatch]);
 
   const handleClick = () => {
     clickClose();

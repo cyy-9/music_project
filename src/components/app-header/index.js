@@ -5,23 +5,29 @@ import {
     SearchOutlined,
     RightOutlined,
 } from '@ant-design/icons';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import axios from 'axios';
 import {
     HeaderWrapper,
     HeaderLeft,
     HeaderRight,
-    SearchMenuDiv
+    SearchMenuDiv,
+    AvatarMenuStyle,
 } from './style';
 import {headerLinks} from '../../common/local-data.js';
 import request from '../../services/request';
 import LoginModal from '../login-modal';
 import {api} from '../../services/config';
+import {
+    changeLoginStatus,
+    changeUserId,
+    ChangeUserAvatar,
+} from './store/action';
 
 function SearchMenu(props) {
-    const {visible, keywords, songs, artists, albums, playlists} = props;
+    const {visible, keywords, songs, artists, albums, playlists = []} = props;
     const handleClick = (e) => {
-        console.log(keywords);
+        console.log(playlists);
     }
     return (
         visible ? 
@@ -38,14 +44,14 @@ function SearchMenu(props) {
                 </div>
                 <div className="result-content">
                     <div className="result-title">
-                        <h3 className='title1 title-item'>单曲</h3>
-                        <h3 className='title2 title-item'>歌手</h3>
-                        <h3 className='title3 title-item'>专辑</h3>
-                        <h3 className='title4 title-item'>歌单</h3>
+                        {songs.length ? <h3 className='title1 title-item'>单曲</h3> : null}
+                        {artists.length ? <h3 className='title2 title-item'>歌手</h3> : null}
+                        {albums.length ? <h3 className='title3 title-item'>专辑</h3> : null}
+                        {playlists.length ? <h3 className='title4 title-item'>歌单</h3> : null}
                     </div>
                     <div className="result-list">
                     {
-                        songs.length && songs.map((item, index) => {
+                        songs.length ? songs.map((item, index) => {
                             return (
                                 <div 
                                     className={`list-item ${index === songs.length - 1 ? 'padding-bottom' : ''} ${index === 0 ? 'padding-top' : ''}`}
@@ -54,42 +60,61 @@ function SearchMenu(props) {
                                     return i.name + " " + pre;
                                 }, '')}`}</div>
                             )
-                        })
+                        }) : null
                     }
                     {
-                        artists.length && artists.map((item, index) => {
+                        artists.length ? artists.map((item, index) => {
                             return (
                                 <div 
                                     className={`list-item ${index === artists.length - 1 ? 'padding-bottom' : ''} ${index === 0 ? 'padding-top border-style' : ''}`}
                                     key={item.id}
                                 >{item.name}</div>
                             )
-                        })
+                        }) : null
                     }
                     {
-                        albums.length && albums.map((item, index) => {
+                        albums.length ? albums.map((item, index) => {
                             return (
                                 <div 
                                     className={`list-item ${index === albums.length - 1 ? 'padding-bottom' : ''} ${index === 0 ? 'padding-top border-style' : ''}`}
                                     key={item.id}
                                 >{`${item.name}-${item.artist.name}`}</div>
                             )
-                        })
+                        }) : null
                     }
                     {
-                        playlists.length && playlists.map((item, index) => {
+                        playlists.length ? playlists.map((item, index) => {
                             return (
                                 <div 
                                     className={`list-item ${index === playlists.length - 1 ? 'padding-bottom' : ''} ${index === 0 ? 'padding-top border-style' : ''}`}
                                     key={item.id}
                                 >{item.name}</div>
                             )
-                        })
+                        }): null
                     }
                     </div>
                 </div>
             </div>
         </SearchMenuDiv> : null
+    )
+}
+
+function AvatarMenu(props) {
+    const {move} = props
+    return (
+        <AvatarMenuStyle 
+            onMouseEnter={() => move(true)}
+            onMouseLeave={() => move(false)}
+        >
+            <div className="avatar-menu-first-item"></div>
+            <div className="avatar-menu-item">我的主页</div>
+            <div className="avatar-menu-item">我的消息</div>
+            <div className="avatar-menu-item">我的等级</div>
+            <div className="avatar-menu-item">VIP会员</div>
+            <div className="avatar-menu-item">个人设置</div>
+            <div className="avatar-menu-item">实名认证</div>
+            <div className="avatar-menu-item">退出</div>
+        </AvatarMenuStyle>
     )
 }
 
@@ -102,25 +127,47 @@ export default memo(function YYAppHeader() {
     const [albums, setAlbums] = useState([]);     // 专辑
     const [playlists, setPlaylists] = useState([]);     // 歌单
     const [loginModalVisible, setLoginModalVisible] = useState(false);
+    const [isAvatarMenuVisible, setIsAvatarMenuVisible] = useState(false);
 
     const dispatch = useDispatch();
-    // 获取登录状态
-    const getLoginStatus = () => {
-      // 拿到localStorage中的cookie
-      let cookie = localStorage.getItem('cookie');
-      axios({
-        url: api + '/login/status',
-        params: {
-          cookie: cookie,
+
+    useEffect(() => {
+        // console.log('获取登录状态');
+        let cookie = localStorage.getItem('cookie');
+        axios({
+          url: api + '/login/status',
+          params: {
+            cookie: cookie,
+            timestamp: new Date().getTime(),
+          }
+        }).then((res) => {  
+            if(res.data.data.account && res.data.data.account.id) {
+                dispatch(changeLoginStatus(true));
+            }
+        })
+    }, [dispatch]);
+
+    const {isLogin, userAvatar} = useSelector(state => ({
+        isLogin: state.loginReducer.isLogin,
+        userAvatar: state.loginReducer.userAvatar,
+    }), shallowEqual);
+
+    // 登录成功后，获取用户信息
+    useEffect(() => {
+        if(isLogin) {
+            axios({
+                url: api + '/user/account',
+                params: {
+                    cookie: localStorage.getItem('cookie'),
+                    timestamp: new Date().getTime(),
+                }
+            }).then((res) => {
+                // console.log(res.data);
+                dispatch(changeUserId(res.data.profile.userId));
+                dispatch(ChangeUserAvatar(res.data.profile.avatarUrl));
+            })
         }
-      }).then((res) => {
-        if(res.data.account.id) {
-          dispatch()
-        } else {
-          
-        }
-      })
-    }
+    }, [isLogin, dispatch]);
 
     const showSelectItem = (item, index) => {
         if(index < 3) {
@@ -156,10 +203,10 @@ export default memo(function YYAppHeader() {
             }
         }).then((res) => {
             console.log(res)
-            setSongs(res.result.songs);
-            setArtists(res.result.artists);
-            setAlbums(res.result.albums);
-            setPlaylists(res.result.playlists);
+            setSongs(res.result.songs || []);
+            setArtists(res.result.artists || []);
+            setAlbums(res.result.albums || []);
+            setPlaylists(res.result.playlists || []);
         })
     }
     const handlePressEnter = (e) => {
@@ -224,10 +271,26 @@ export default memo(function YYAppHeader() {
                         artists={artists}
                     />
                     <div className="center">创作者中心</div>
-                    <div 
-                        className="login-button"
-                        onClick={handleClickLogin}
-                    >登录</div>
+                    {
+                        !isLogin ? 
+                        <div 
+                            className="login-button"
+                            onClick={handleClickLogin}
+                        >登录</div> :
+                        <div className="login-success">
+                            <div className="avatar">
+                                {userAvatar ? <img 
+                                                src={userAvatar} 
+                                                alt=""
+                                                onMouseEnter={() => setIsAvatarMenuVisible(true)}
+                                                onMouseLeave={() => setIsAvatarMenuVisible(false)}
+                                            /> : null}
+                            </div>
+                            {isAvatarMenuVisible ? <AvatarMenu 
+                                                        move={(temp) => setIsAvatarMenuVisible(temp)}
+                                                    /> : null}
+                        </div>
+                    }   
                 </HeaderRight>
             </div>
             <div className="divider"></div>

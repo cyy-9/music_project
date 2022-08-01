@@ -113,6 +113,19 @@ export const HeaderRight = styled.div`
             color: #eee;
         }
     }
+    .login-success {
+        /* position: relative; */
+        padding-right: 22px;
+        .avatar {
+            width: 30px;
+            height: 30px;
+            img {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+            }
+        }
+    }
 `;
 
 export const SearchMenuDiv = styled.div`
@@ -186,5 +199,32 @@ export const SearchMenuDiv = styled.div`
                 }
             }
         }
+    }
+`;
+
+export const AvatarMenuStyle = styled.div`
+    /* box-sizing: border-box; */
+    width: 158px;
+    position: fixed;
+    top: 51px;
+    right: 167px;
+    z-index: 10;
+    border-radius: 4px;
+    cursor: pointer;
+    .avatar-menu-item {
+        background: #2b2b2b;
+        color: #aaa;
+        font-size: 12px;
+        height: 26px;
+        width: 100%;
+        text-align: center;
+        line-height: 26px;
+        &:hover {
+            color: #eee;
+            background: #353535;
+        }
+    }
+    .avatar-menu-first-item {
+        background: transparent;
     }
 `;
