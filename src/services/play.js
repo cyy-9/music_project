@@ -7,6 +7,7 @@ export const getCurrentSong = (ids) => {
         url: '/song/detail',
         params: {
             ids,
+            cookie: localStorage.getItem('cookie'),
         }
     })
 }

@@ -76,16 +76,16 @@ const saveOriginListAction = (res) => {
 export const getListAction = (id) => {
     return (dispatch) => {
         getList(id).then(res => {
-            console.log(res)
+            console.log(res.data)
             switch(id) {
-                case 0:
-                    dispatch(saveSoarListAction(res));
+                case 19723756:
+                    dispatch(saveSoarListAction(res.data));
                     break;
-                case 2:
-                    dispatch(saveNewListAction(res));
+                case 3779629:
+                    dispatch(saveNewListAction(res.data));
                     break;
-                case 3:
-                    dispatch(saveOriginListAction(res));
+                case 2884035:
+                    dispatch(saveOriginListAction(res.data));
                     break;
                 default:
                     break;

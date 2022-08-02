@@ -6,6 +6,7 @@ import {getSizeImg} from '../../utils/format-utils'
 import {getCurrentSongAction} from '../../pages/play/store/action.js';
 
 export default memo(function YYTopRanking(props) {
+    // info是playlist属性
     const {info = {}} = props;
     const dispatch = useDispatch();
     // 点击按钮，将对应歌曲添加到播放列表，并播放

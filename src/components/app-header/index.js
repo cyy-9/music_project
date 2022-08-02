@@ -1,6 +1,6 @@
 import React, { memo, useState, useEffect } from 'react';
 import {NavLink} from 'react-router-dom';
-import {Input} from 'antd';
+import {Input, Popover} from 'antd';
 import {
     SearchOutlined,
     RightOutlined,
@@ -25,14 +25,10 @@ import {
 } from './store/action';
 
 function SearchMenu(props) {
-    const {visible, keywords, songs, artists, albums, playlists = []} = props;
-    const handleClick = (e) => {
-        console.log(playlists);
-    }
+    const {visible, keywords, songs, artists, albums, playlists} = props;
     return (
         visible ? 
         <SearchMenuDiv 
-            onClick={(e) => handleClick(e)}
             songsCount={songs.length}
             artistsCount={artists.length}
             albumsCount={albums.length}
@@ -100,20 +96,22 @@ function SearchMenu(props) {
 }
 
 function AvatarMenu(props) {
-    const {move} = props
+    const {signOut} = props;
+    const handleClick = () => {
+        signOut();
+    }
     return (
-        <AvatarMenuStyle 
-            onMouseEnter={() => move(true)}
-            onMouseLeave={() => move(false)}
-        >
-            <div className="avatar-menu-first-item"></div>
+        <AvatarMenuStyle >
             <div className="avatar-menu-item">我的主页</div>
             <div className="avatar-menu-item">我的消息</div>
             <div className="avatar-menu-item">我的等级</div>
             <div className="avatar-menu-item">VIP会员</div>
             <div className="avatar-menu-item">个人设置</div>
             <div className="avatar-menu-item">实名认证</div>
-            <div className="avatar-menu-item">退出</div>
+            <div 
+                className="avatar-menu-item"
+                onClick={handleClick}
+            >退出</div>
         </AvatarMenuStyle>
     )
 }
@@ -127,7 +125,6 @@ export default memo(function YYAppHeader() {
     const [albums, setAlbums] = useState([]);     // 专辑
     const [playlists, setPlaylists] = useState([]);     // 歌单
     const [loginModalVisible, setLoginModalVisible] = useState(false);
-    const [isAvatarMenuVisible, setIsAvatarMenuVisible] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -168,6 +165,12 @@ export default memo(function YYAppHeader() {
             })
         }
     }, [isLogin, dispatch]);
+
+    // 点击退出
+    const signOut = () => {
+        dispatch(changeLoginStatus(false));
+        localStorage.removeItem('cookie');
+    }
 
     const showSelectItem = (item, index) => {
         if(index < 3) {
@@ -279,16 +282,18 @@ export default memo(function YYAppHeader() {
                         >登录</div> :
                         <div className="login-success">
                             <div className="avatar">
-                                {userAvatar ? <img 
-                                                src={userAvatar} 
-                                                alt=""
-                                                onMouseEnter={() => setIsAvatarMenuVisible(true)}
-                                                onMouseLeave={() => setIsAvatarMenuVisible(false)}
-                                            /> : null}
+                                {
+                                    userAvatar ?
+                                    <Popover 
+                                        content={<AvatarMenu signOut={signOut}/>}
+                                        arrowPointAtCenter={true}
+                                        color="#2b2b2b"
+                                    >
+                                        <img src={userAvatar} alt=""/>
+                                    </Popover>
+                                    : null
+                                }
                             </div>
-                            {isAvatarMenuVisible ? <AvatarMenu 
-                                                        move={(temp) => setIsAvatarMenuVisible(temp)}
-                                                    /> : null}
                         </div>
                     }   
                 </HeaderRight>

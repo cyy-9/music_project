@@ -1,4 +1,6 @@
 import request from './request';
+import axios from 'axios';
+import {api} from './config';
 
 // 发现音乐-推荐页的网络请求
 // 发送网络请求的函数，请求轮播图
@@ -30,8 +32,8 @@ export function getNewDisc(limit) {
 
 // 请求排行榜的数据
 export function getList(id) {
-    return request({
-        url: '/playlist/detail',
+    return axios({
+        url: api + '/playlist/detail',
         params: {
             id,
         }

@@ -53,12 +53,14 @@ export default memo(function YYToolBar() {
     }, [dispatch, songsList])
     // 给 audio标签设置 src属性
     useEffect(() => {
-        audioRef.current.src = getPlaySong(currentSong.id);
-        audioRef.current.play().then(res => {
-            setIsplaying(true);
-        }).catch(() => {
-            setIsplaying(false);
-        }); 
+        if(currentSong) {
+            audioRef.current.src = getPlaySong(currentSong.id);
+            audioRef.current.play().then(res => {
+                setIsplaying(true);
+            }).catch(() => {
+                setIsplaying(false);
+            }); 
+        }
     }, [currentSong]);
     const audioRef = useRef();                  // 保存 audio标签
     const lyricRef = useRef(realTimeLyric);     // 保存实时播放的一句歌词
@@ -106,7 +108,7 @@ export default memo(function YYToolBar() {
         setIsChanging(true);
         setCurrentTime(value / 100 * currentSong.dt);
         setProgress(value);
-    }, [currentSong.dt]);
+    }, [currentSong]);
     const sliderAfterChange = useCallback((value) => {
         // value是拖拽松手时拿到的进度掉的刻度值
         let time = value / 100 * currentSong.dt / 1000; // 松手时的秒数
@@ -115,7 +117,7 @@ export default memo(function YYToolBar() {
         // 松手时，音乐在松手的位置播放
         audioRef.current.currentTime = time;
         setIsChanging(false);
-    }, [currentSong.dt]);
+    }, [currentSong]);
 
     // 改变播放模式，顺序 0，随机 1，单曲循环 2
     const changePlayMode = () => {
@@ -127,31 +129,40 @@ export default memo(function YYToolBar() {
     }
     // 切换歌曲，temp=-1 上一首；temp=1 下一首
     const changeMusic = (temp) =>  {
-        let newCurrentSongIndex = currentSongIndex; // 拿到当前歌曲索引的副本
-        switch(playMode) {  // 根据播放模式，确定下一个歌曲的索引
-            case 1:     // 随机播放
-                let randomIndex = Math.floor(Math.random() * songsList.length);
-                while(randomIndex === currentSongIndex) {   // 新索引值不能和 当前播放歌曲一样
-                    randomIndex = Math.floor(Math.random() * songsList.length);
-                }
-                newCurrentSongIndex = randomIndex;
-                break;
-            case 0:    // 顺序播放
-                newCurrentSongIndex += temp;   // 索引 +1或 -1，表示切换歌曲
-                if(newCurrentSongIndex > songsList.length - 1) {   // 边界处理
-                    newCurrentSongIndex = 0;
-                } else if(newCurrentSongIndex < 0) {
-                    newCurrentSongIndex = songsList.length - 1;
-                }
-                break;
-            default:    // 单曲循环
-                newCurrentSongIndex = currentSongIndex;
+        if(songsList.length <= 1) {
+            dispatch(getCurrentSongAction(currentSong.id));
+            dispatch(getLyricAction(currentSong.id))
+            // 播放完时，将歌曲时间设为0，接着从头播放
+            audioRef.current.currentTime = 0;
+            // 调用play()，开始播放
+            audioRef.current.play();
+        } else {
+            let newCurrentSongIndex = currentSongIndex; // 拿到当前歌曲索引的副本
+            switch(playMode) {  // 根据播放模式，确定下一个歌曲的索引
+                case 1:     // 随机播放
+                    let randomIndex = Math.floor(Math.random() * songsList.length);
+                    while(randomIndex === currentSongIndex) {   // 新索引值不能和 当前播放歌曲一样
+                        randomIndex = Math.floor(Math.random() * songsList.length);
+                    }
+                    newCurrentSongIndex = randomIndex;
+                    break;
+                case 0:    // 顺序播放
+                    newCurrentSongIndex += temp;   // 索引 +1或 -1，表示切换歌曲
+                    if(newCurrentSongIndex > songsList.length - 1) {   // 边界处理
+                        newCurrentSongIndex = 0;
+                    } else if(newCurrentSongIndex < 0) {
+                        newCurrentSongIndex = songsList.length - 1;
+                    }
+                    break;
+                default:    // 单曲循环
+                    newCurrentSongIndex = currentSongIndex;
+            }
+            // 拿到下一首歌
+            const newCurrentSong = songsList[newCurrentSongIndex];
+            // 修改 redux状态，包括当前播放歌曲 index，当前播放歌曲
+            dispatch(getCurrentSongAction(newCurrentSong.id));
+            dispatch(getLyricAction(newCurrentSong.id))
         }
-        // 拿到下一首歌
-        const newCurrentSong = songsList[newCurrentSongIndex];
-        // 修改 redux状态，包括当前播放歌曲 index，当前播放歌曲
-        dispatch(getCurrentSongAction(newCurrentSong.id));
-        dispatch(getLyricAction(newCurrentSong.id))
     }
     // 歌曲播放完之后的切换
     const musicEnded = () => {
@@ -171,9 +182,9 @@ export default memo(function YYToolBar() {
     }
 
     // 工具栏歌曲图片链接
-    const currentSongUrl = currentSong.al && currentSong.al.picUrl + '?param=34y34';
+    const currentSongUrl = currentSong && currentSong.al && currentSong.al.picUrl + '?param=34y34';
     // 歌曲作者名字的处理，防止 name of undefined
-    const currentSongArtist = currentSong.ar && currentSong.ar[0].name;
+    const currentSongArtist = currentSong && currentSong.ar && currentSong.ar[0].name;
     // 歌曲播放实时时间的处理
     const showCurrentTime = formatDate(currentTime, "mm:ss");
 
@@ -197,7 +208,7 @@ export default memo(function YYToolBar() {
                     </div>
                     <div className="info">
                         <div className="song">
-                            <a href="to">{currentSong.name}</a>
+                            <a href="to">{currentSong && currentSong.name}</a>
                             <a href="to" className="singer-name">{currentSongArtist}</a>
                         </div>
                         <div className="progress">
@@ -209,7 +220,7 @@ export default memo(function YYToolBar() {
                             <div className="time">
                                 <span className="now-time">{showCurrentTime}</span>
                                 <span className="divider">/</span>
-                                <span className="duration">{formatDate(currentSong.dt, "mm:ss")}</span>
+                                <span className="duration">{currentSong ? formatDate(currentSong.dt, "mm:ss") : ''}</span>
                             </div>
                         </div>
                     </div>

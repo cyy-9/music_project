@@ -166,13 +166,21 @@ export const SearchMenuDiv = styled.div`
                     margin-top: 6px;
                 }
                 .title2 {
-                    margin-top: ${(props) => ((props.songsCount - 1) * 24 + 12)}px;
+                    margin-top: ${(props) => {
+                        return props.songsCount === 0 ? 0 : ((props.songsCount - 1) * 24 + 12 + 1)
+                    }}px;
                 }
                 .title3 {
-                    margin-top: 12px;
+                    /* margin-top: 12px; */
+                    margin-top: ${(props) => {
+                        return props.artistsCount === 0 ? 0 : ((props.artistsCount - 1) * 24 + 12 + 1)
+                    }}px;
                 }
                 .title4 {
-                    margin-top: 36px;
+                    /* margin-top: 36px; */
+                    margin-top: ${(props) => {
+                        return props.albumsCount === 0 ? 0 : ((props.albumsCount - 1) * 24 + 12 + 1)
+                    }}px;
                 }
             }
             .result-list {
@@ -204,27 +212,21 @@ export const SearchMenuDiv = styled.div`
 
 export const AvatarMenuStyle = styled.div`
     /* box-sizing: border-box; */
-    width: 158px;
-    position: fixed;
-    top: 51px;
-    right: 167px;
+    width: 100px;
     z-index: 10;
     border-radius: 4px;
     cursor: pointer;
     .avatar-menu-item {
-        background: #2b2b2b;
+        /* background: #2b2b2b; */
         color: #aaa;
         font-size: 12px;
         height: 26px;
-        width: 100%;
+        /* width: 100%; */
         text-align: center;
         line-height: 26px;
         &:hover {
             color: #eee;
             background: #353535;
         }
-    }
-    .avatar-menu-first-item {
-        background: transparent;
     }
 `;

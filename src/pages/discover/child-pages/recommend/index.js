@@ -4,6 +4,7 @@ import YYTopBanner from './components/top-banner';
 import YYHot from './components/hot';
 import YYRecList from './components/list';
 import YYRecNewDisc from './components/new-disc';
+import HomeAcInfo from './components/home-acinfo';
 import {
     RecommendWrapper,
     Content,
@@ -24,7 +25,7 @@ function YYRecommend(props) {
                     <YYRecList></YYRecList>
                 </RecommendLeft>
                 <RecommendRight>
-                    
+                    <HomeAcInfo/>
                 </RecommendRight>
             </Content>
         </RecommendWrapper>

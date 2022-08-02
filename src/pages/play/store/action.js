@@ -25,8 +25,9 @@ export const getCurrentSongAction = (id) => {
             return song.id === id;
         });
         let song = null;
-        if(songIdex === -1) {   // 没找到，网络请求歌曲信息
+        if(songIdex === -1) {   // 没找到，调接口请求歌曲信息
             getCurrentSong(id).then(res => {
+                console.log(res);
                 song = res.songs && res.songs[0];
                 // 将请求到的新歌曲信息添加到播放列表末尾
                 const newSongsList = [...songsList];
@@ -92,7 +93,7 @@ export const getLyricAction = (id) => {
         getLyric(id).then(res => {
             // 拿到解析后的歌词
             const lyricList = parseLyric(res.lrc.lyric);
-            dispatch(saveLyricAction(lyricList));
+            dispatch(saveLyricAction([...lyricList]));
         })
     }
 }
