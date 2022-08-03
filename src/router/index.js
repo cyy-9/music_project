@@ -79,7 +79,7 @@ const routes = [
     {
         path: '/friend',
         component: YYFriend,
-    }
+    },
 ]
 
 export default routes;

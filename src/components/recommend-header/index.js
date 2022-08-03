@@ -1,8 +1,12 @@
 import React, { memo } from 'react'
 import {HeaderWrapper} from './style';
+import { withRouter } from 'react-router';
 
-export default memo(function YYRecHeader(props) {
-    const {title, keywords} = props
+function YYRecHeader(props) {
+    const {title, keywords} = props;
+    const handleClickMore = () => {
+        props.history.push('/discover/songs');
+    }
     return (
         <HeaderWrapper className="sprite_02">
             <div className="left">
@@ -21,9 +25,11 @@ export default memo(function YYRecHeader(props) {
                 </div>
             </div>
             <div className="right">
-                <a href="to">更多</a>
+                <span onClick={handleClickMore}>更多</span>
                 <i className="icon sprite_02"></i>
             </div>
         </HeaderWrapper>
     )
-})
+}
+
+export default memo(withRouter(YYRecHeader));

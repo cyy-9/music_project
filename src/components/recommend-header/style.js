@@ -35,6 +35,13 @@ export const HeaderWrapper = styled.div`
   .right {
     display: flex;
     align-items: center;
+    span {
+      color: #666;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
     .icon {
       display: inline-block;
       width: 12px;

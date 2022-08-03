@@ -8,7 +8,7 @@ export default memo(function YYSongsItem(props) {
     return (
         <SongsItemWrapper>
             <div className="cover-top">
-                <img src={getSizeImg(info.picUrl, 140)} alt="歌单"/>
+                <img src={getSizeImg(info.picUrl || info.coverImgUrl, 140)} alt="歌单"/>
                 <div className="cover sprite_covor">
                     <div className="info sprite_covor">
                         <span>
